@@ -1,4 +1,4 @@
-import { Container, Row, Col, Container } from "react-bootstrap"
+import { Container, Row } from "react-bootstrap"
 import ProductItem from "../Products/ProductItem"
 
 

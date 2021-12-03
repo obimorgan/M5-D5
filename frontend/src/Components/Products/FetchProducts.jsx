@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import ProductItem from "./ProductItem";
 
-const Fetch = () => {
+const FetchProducts = () => {
 
     const [products, setpProducts] = useState([])
 
@@ -28,6 +29,13 @@ const Fetch = () => {
             throw new Error(error);
         }
     };
+    return (
+        <>
+            {products && products.map(p => 
+                <ProductItem key={p.id} {...p}/>
+            )}
+        </>
+    )
 }
 
-export default Fetch
+export default FetchProducts
