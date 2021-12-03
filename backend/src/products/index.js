@@ -5,12 +5,12 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { parseFile, uploadFile } from "../utils/uploadProductImg/index.js";
 
-// import {
-//   checkBlogPostSchema,
-//   checkCommentSchema,
-//   checkSearchSchema,
-//   checkValidationResult,
-// } from "./validation.js";
+import {
+  checkProductSchema,
+  //   checkCommentSchema,
+  //   checkSearchSchema,
+  //   checkValidationResult,
+} from "./validation.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -78,7 +78,7 @@ productsRouter.get(
 
 productsRouter.post(
   "/",
-  //   checkBlogPostSchema,
+  checkProductSchema,
   //   checkValidationResult,
   async (req, res, next) => {
     try {
