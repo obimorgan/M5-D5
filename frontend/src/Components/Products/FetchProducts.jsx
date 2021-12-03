@@ -3,7 +3,7 @@ import ProductItem from "./ProductItem";
 
 const FetchProducts = () => {
 
-    const [products, setpProducts] = useState([])
+    const [products, setProducts] = useState([])
 
     useEffect(() => {
         fetchProducts()
@@ -11,7 +11,7 @@ const FetchProducts = () => {
 
     const fetchProducts = async () => {
         try {
-            const responce = await fetch(
+            const response = await fetch(
                 "https://striveschool-api.herokuapp.com/api/product/",
                 {
                     headers: {
@@ -20,21 +20,26 @@ const FetchProducts = () => {
                     },
                 }
             );
-            if (!responce.ok) {
+            if (!response.ok) {
                 throw new Error("fail to fetch");
             }
-            const data = responce.json()
-            setpProducts(data)
+            const data = response.json()
+            setProducts(data)
         } catch (error) {
             throw new Error(error);
         }
     };
     return (
         <>
-            {products && products.map(p => 
-                <ProductItem key={p.id} {...p}/>
-            )}
+
+            <ProductItem products={products} />
+
         </>
+        // <>
+        //     {products && products.map(p => 
+        //         <ProductItem key={p.id} products={products}/>
+        //     )}
+        // </>
     )
 }
 

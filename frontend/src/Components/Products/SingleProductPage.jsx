@@ -1,21 +1,25 @@
-import { Container, Button } from "react-bootstrap";
-import Jumbotron from 'react-bootstrap/Jumbotron'
+import { Container, Button, Jumbotron } from "react-bootstrap";
+import CommentsItems from "../Comments/CommentsItems";
+import {useNavigate} from "react-router-dom"
 
 const SingleProductPage = () => {
+    const navigate = useNavigate()
     return (
         <>
-            <div>Hello</div>
             <Container>
                 <Jumbotron>
-                    <h1>Hello, world!</h1>
+                    <h1>Title</h1>
                     <p>
-                        This is a simple hero unit, a simple jumbotron-style component for calling
-                        extra attention to featured content or information.
+                        Product description.
                     </p>
                     <p>
-                        <Button variant="primary">Learn more</Button>
+                        <Button 
+                        onClick={() => navigate("./")}
+                        variant="primary">Edit</Button>
                     </p>
                 </Jumbotron>
+                <h5>Comments</h5>
+                <CommentsItems />
             </Container>
         </>
     )
