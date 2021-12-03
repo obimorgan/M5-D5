@@ -133,7 +133,7 @@ const Edit = () => {
                     <Form.File id="exampleFormControlFile1" label="Example file input" />
                 </Form.Group>
                 <Button variant="primary" onClick={postInfo}>
-                    Submit
+                    Save Details
                 </Button>
 
             </Form>
