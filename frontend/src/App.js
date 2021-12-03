@@ -1,10 +1,11 @@
-/** @format */
 import "./App.css";
+import Edit from "./Components/Backoffice/Form";
 
 function App() {
   return (
     <>
-      <div>Hello World</div>
+    <h1>HInp</h1>
+    <Edit />
     </>
   );
 }
