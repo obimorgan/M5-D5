@@ -22,7 +22,7 @@ const reviewsRouter = express.Router();
 
 // Create Review
 
-reviewsRouter.post("/", checkReviewSchema, async (req, res, next) => {
+reviewsRouter.post("/", async (req, res, next) => {
     try {
         const review = {
             id: uniqid(),
@@ -38,6 +38,8 @@ reviewsRouter.post("/", checkReviewSchema, async (req, res, next) => {
         const fileAsJSONArray = JSON.parse(fileAsString);
 
         fileAsJSONArray.push(review);
+        
+        res.send(review);
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
@@ -70,10 +72,10 @@ reviewsRouter.get("/", async (req, res, next) => {
         const fileAsJSONArray = JSON.parse(fileAsString);
 
         const reviewIndex = fileAsJSONArray.findIndex((review) => review.id === req.params.id);
-        if (!reviewIndex == -1) {
+        if (reviewIndex !== -1) {
             res.status(404).send({ message: error.message });
         }
-        const previousReviewData = fileAsJSONArray[blogIndex];
+        const previousReviewData = fileAsJSONArray[reviewIndex];
         const changedReview = {
             ...previousReviewData,
             ...req.body,
