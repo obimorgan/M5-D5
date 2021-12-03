@@ -78,15 +78,14 @@ reviewsRouter.put("/:id", async (req, res, next) => {
         let fileAsJSONArray = JSON.parse(fileAsString);
 
         const reviewIndex = fileAsJSONArray.findIndex((review) => review.id === req.params.id);
-        if (reviewIndex !== -1) {
+        if (reviewIndex === -1) {
             res.status(404).send({ message: `Review with id ${req.params.id} does not exist.` });
         }
         const previousReviewData = fileAsJSONArray[reviewIndex];
         const changedReview = {
             ...previousReviewData,
             ...req.body,
-            updatedAt: newDate(),
-            id: req.params.id,
+            updatedAt: new Date(),
         };
         fileAsJSONArray[reviewIndex] = changedReview;
 
@@ -112,7 +111,7 @@ reviewsRouter.delete("/:id", async (req, res, next) => {
         if (!review) {
             res.status(404).send({ message: `Review with ${req.params.id} does not exist.` });
         }
-        fileAsJSONArray = fileAsJSONArray.filter((review) => review.id);
+        fileAsJSONArray = fileAsJSONArray.filter((review) => review.id !== req.params.id);
 
         fs.writeFileSync(reviewsFilePath, JSON.stringify(fileAsJSONArray));
 
