@@ -45,6 +45,22 @@ reviewsRouter.post("/", checkReviewSchema, async (req, res, next) => {
     }
 });
 
+// Get All Reviews
+
+reviewsRouter.get("/", async (req, res, next) => {
+    try {
+        const fileAsBuffer = fs.readFileSync(reviewsFilePath);
+
+        const fileAsString = fileAsBuffer.toString();
+
+        const fileAsJSON = JSON.parse(fileAsString);
+        
+        res.send(fileAsJSON);
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+ })
+
 
 
 const reviewsRouter = express.Router();
