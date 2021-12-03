@@ -5,12 +5,13 @@ export const NavBar = () => {
     return (
         <Container>
             <Nav
+            className="px-0 pt-5 mb-5 border-bottom"
                 activeKey="/home"
                 onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
             >
                 <Nav.Item>
                     <Link to="/">
-                        <div className="nav-link">Home</div>
+                        <div className="nav-link pl-0">Home</div>
                     </Link>
                 </Nav.Item>
                 <Nav.Item>

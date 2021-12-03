@@ -1,9 +1,11 @@
-import { Container, Row, Col, Jumbotron } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 const SingleProductPage = () => {
     return (
-        <Container>
-            <Row>
+        <>
+            <div>Hello</div>
+            <Container>
                 <Jumbotron>
                     <h1>Hello, world!</h1>
                     <p>
@@ -14,8 +16,8 @@ const SingleProductPage = () => {
                         <Button variant="primary">Learn more</Button>
                     </p>
                 </Jumbotron>
-            </Row>
-        </Container>
+            </Container>
+        </>
     )
 }
 
