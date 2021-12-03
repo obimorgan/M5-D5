@@ -1,4 +1,4 @@
-import { Container, Navbar, } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import ProductItem from "../Products/ProductItem"
 import NavBar from "../NavBar/NavBar"
 

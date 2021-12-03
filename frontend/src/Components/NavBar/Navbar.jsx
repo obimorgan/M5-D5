@@ -1,6 +1,7 @@
 import { Nav, Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
+
 export const NavBar = () => {
     return (
         <Container>
