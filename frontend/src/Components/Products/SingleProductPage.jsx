@@ -15,7 +15,7 @@ const SingleProductPage = () => {
                     </p>
                     <p>
                         <Button 
-                        onClick={() => navigate("./")}
+                        onClick={() => navigate("./back-office")}
                         variant="primary">Edit</Button>
                     </p>
                 </Jumbotron>
