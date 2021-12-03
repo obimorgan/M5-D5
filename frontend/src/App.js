@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage/>}></Route>
         <Route path="/single-product" exact={true} element={<SingleProductPage/>}></Route>
-        <Route path="/back-office" exact={true} element={<Edit/>}></Route>
+        <Route path="/single-product/back-office" exact={true} element={<Edit/>}></Route>
       </Routes>
     </BrowserRouter>
   );
