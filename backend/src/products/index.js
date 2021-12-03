@@ -3,7 +3,7 @@ import fs from "fs";
 import uniqid from "uniqid";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-// import { parseFile, uploadFile } from "../utils/upload/index.js";
+import { parseFile, uploadFile } from "../utils/uploadProductImg/index.js";
 
 // import {
 //   checkBlogPostSchema,
@@ -23,9 +23,17 @@ productsRouter.get("/", async (req, res, next) => {
     const fileAsBuffer = fs.readFileSync(productsFilePath);
     const fileAsString = fileAsBuffer.toString();
     const fileAsJSON = JSON.parse(fileAsString);
-    res.send(fileAsJSON);
+
+    if (req.query && req.query.category) {
+      const filtered = fileAsJSON.filter(
+        (product) => product.category === req.query.category
+      );
+      res.send(filtered);
+    } else {
+      res.send(fileAsJSON);
+    }
   } catch (error) {
-    res.send(500).send({ message: error.message });
+    next(error);
   }
 });
 
@@ -35,7 +43,6 @@ productsRouter.get(
   //   checkValidationResult,
   async (req, res, next) => {
     try {
-      console.log("filtered");
       const { productID } = req.params;
       const fileAsBuffer = fs.readFileSync(productsFilePath);
       const fileAsString = fileAsBuffer.toString();
@@ -47,6 +54,28 @@ productsRouter.get(
     }
   }
 );
+
+productsRouter.get(
+  "/:productID/reviews",
+  //   checkSearchSchema,
+  //   checkValidationResult,
+  async (req, res, next) => {
+    try {
+      const { productID } = req.params;
+      const fileAsBuffer = fs.readFileSync(
+        path.join(dirname(__dirname), "reviews/reviews.json")
+      );
+      const fileAsString = fileAsBuffer.toString();
+      const array = JSON.parse(fileAsString);
+
+      const filtered = array.filter((review) => review.productId === productID);
+      res.send(filtered);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 productsRouter.post(
   "/",
   //   checkBlogPostSchema,
@@ -73,6 +102,7 @@ productsRouter.post(
     }
   }
 );
+
 productsRouter.put("/:productID", async (req, res, next) => {
   try {
     const fileAsBuffer = fs.readFileSync(productsFilePath);
@@ -111,11 +141,9 @@ productsRouter.delete("/:productID", async (req, res, next) => {
       (product) => product.id === req.params.productID
     );
     if (!product) {
-      res
-        .status(404)
-        .send({
-          message: `product with ${req.params.productID} is not found!`,
-        });
+      res.status(404).send({
+        message: `product with ${req.params.productID} is not found!`,
+      });
     }
     fileAsJSONArray = fileAsJSONArray.filter(
       (product) => product.id !== req.params.productID
@@ -126,5 +154,39 @@ productsRouter.delete("/:productID", async (req, res, next) => {
     res.send(500).send({ message: error.message });
   }
 });
+
+productsRouter.post(
+  "/:productID/upload",
+  parseFile.single("productImg"),
+  uploadFile,
+  async (req, res, next) => {
+    try {
+      const fileAsBuffer = fs.readFileSync(productsFilePath);
+      const fileAsString = fileAsBuffer.toString();
+      let fileAsJSONArray = JSON.parse(fileAsString);
+
+      const productIndex = fileAsJSONArray.findIndex(
+        (product) => product.id === req.params.productID
+      );
+      if (productIndex === -1) {
+        res.status(404).send({
+          message: `product with ${req.params.productID} is not found!`,
+        });
+      }
+      const previousProduct = fileAsJSONArray[productIndex];
+      const updatedProduct = {
+        ...previousProduct,
+        imageUrl: req.file,
+        updatedAt: new Date(),
+      };
+      fileAsJSONArray[productIndex] = updatedProduct;
+
+      fs.writeFileSync(productsFilePath, JSON.stringify(fileAsJSONArray));
+      res.send(updatedProduct);
+    } catch (error) {
+      res.send(500).send({ message: error.message });
+    }
+  }
+);
 
 export default productsRouter;
