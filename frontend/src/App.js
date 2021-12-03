@@ -12,14 +12,15 @@ function App() {
         <Route path="/" element={<Homepage />}></Route>
         <Route
           path="/single-product/:id"
-          exact={true}
+          exact
           element={<SingleProductPage />}
         ></Route>
         <Route
           path="/single-product/:id/back-office"
-          exact={true}
+          exact
           element={<Edit />}
         ></Route>
+        <Route path="/new" exact element={<Edit newProduct={true} />}></Route>
       </Routes>
     </BrowserRouter>
   );

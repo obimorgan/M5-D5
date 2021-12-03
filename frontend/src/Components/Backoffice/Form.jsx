@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
-const Edit = () => {
+const Edit = ({ newProduct }) => {
   const { id } = useParams();
   console.log(id);
 
@@ -36,8 +36,33 @@ const Edit = () => {
   };
 
   useEffect(() => {
-    loadProduct();
+    if (!newProduct) loadProduct();
+    setLoading(false);
   }, []);
+
+  const handlePost = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(`http://127.0.0.1:3001/products/`, {
+        method: "POST",
+        body: JSON.stringify(state),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        alert("Failed to fetch");
+      } else {
+        const updatedProduct = await response.json();
+        if (image) {
+          await uploadProductImage(updatedProduct.id);
+        }
+        return updatedProduct;
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -53,7 +78,9 @@ const Edit = () => {
         alert("Failed to fetch");
       } else {
         const updatedProduct = await response.json();
-        await uploadProductImage(updatedProduct.id);
+        if (image) {
+          await uploadProductImage(updatedProduct.id);
+        }
         return updatedProduct;
       }
     } catch (error) {
@@ -185,12 +212,18 @@ const Edit = () => {
                 }}
               />
             </Form.Group>
-            <Button type="submit" variant="primary" onClick={handleSubmit}>
+            <Button
+              type="submit"
+              variant="primary"
+              onClick={newProduct ? handlePost : handleSubmit}
+            >
               Save Details
             </Button>
-            <Button type="button" variant="danger" onClick={deleteProduct}>
-              Delete
-            </Button>
+            {!newProduct && (
+              <Button type="button" variant="danger" onClick={deleteProduct}>
+                Delete
+              </Button>
+            )}
           </Form>
         </div>
       )}
