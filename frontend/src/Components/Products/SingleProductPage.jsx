@@ -7,7 +7,8 @@ const SingleProductPage = () => {
     return (
         <>
             <Container>
-                <Jumbotron>
+                <div className="my-5">
+                <Jumbotron >
                     <h1>Title</h1>
                     <p>
                         Product description.
@@ -20,6 +21,7 @@ const SingleProductPage = () => {
                 </Jumbotron>
                 <h5>Comments</h5>
                 <CommentsItems />
+                </div>
             </Container>
         </>
     )

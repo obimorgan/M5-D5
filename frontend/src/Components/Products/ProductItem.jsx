@@ -1,14 +1,14 @@
 import { Card, Button } from 'react-bootstrap'
-// import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 const ProductItem = ({ products }) => {
-    // const navigate = useNavigate()
+
     return (
         <>
-            {products && products.map(product =>
-                <Card style={{ width: '18rem' }} className="m-1 fluid-image">
-                    <Card.Img variant="top" src="holder.js/100px180" />
+            {/* {products && products.map(product => */}
+
+                <Card style={{ width: '16rem' }} className="m-1">
+                    <Card.Img variant="top" src="https://unsplash.com/photos/PDX_a_82obo"/>
                     <Card.Body>
                         <Card.Title>Card Title</Card.Title>
                         <Card.Text>
@@ -22,7 +22,8 @@ const ProductItem = ({ products }) => {
                         </Link>
                     </Card.Body>
                 </Card>
-            )}
+            
+            {/* )} */}
         </>
 
     )

@@ -31,9 +31,7 @@ const FetchProducts = () => {
     };
     return (
         <>
-
             <ProductItem products={products} />
-
         </>
         // <>
         //     {products && products.map(p => 

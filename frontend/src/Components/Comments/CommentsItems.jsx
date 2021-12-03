@@ -3,13 +3,14 @@ import { ListGroup } from "react-bootstrap";
 const CommentsItems = () => {
     return (
         <>
-        
             <ListGroup>
-                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                <ListGroup.Item>Comment author. Rated: 5</ListGroup.Item>
+                <br />
+                <ListGroup.Item>Comment author. Rated: 5</ListGroup.Item>
+                <br />
+                <ListGroup.Item>Comment author. Rated: 5</ListGroup.Item>
+                <br />
+                <ListGroup.Item>Comment author. Rated: 5</ListGroup.Item>
             </ListGroup>
         </>
     )

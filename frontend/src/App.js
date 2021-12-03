@@ -9,7 +9,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 function App() {
   return (
     <BrowserRouter>
-    <NavBar/>
       <Routes>
         <Route path="/" element={<Homepage/>}></Route>
         <Route path="/single-product" exact={true} element={<SingleProductPage/>}></Route>
