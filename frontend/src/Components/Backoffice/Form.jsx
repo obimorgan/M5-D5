@@ -61,6 +61,22 @@ const Edit = () => {
     }
   };
 
+  const deleteProduct = async (event) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:3001/products/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        alert("Failed to fetch");
+      } else {
+        const resp = await response.json();
+        return resp;
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   const uploadProductImage = async (id) => {
     try {
       const cover = new FormData();
@@ -171,6 +187,9 @@ const Edit = () => {
             </Form.Group>
             <Button type="submit" variant="primary" onClick={handleSubmit}>
               Save Details
+            </Button>
+            <Button type="button" variant="danger" onClick={deleteProduct}>
+              Delete
             </Button>
           </Form>
         </div>
