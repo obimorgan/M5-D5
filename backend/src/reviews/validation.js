@@ -10,7 +10,7 @@ const schema = {
     rate: {
         in: ["body"],
         isNumeric: {
-            errorMessage: "Rating validation failed, type must be string.",
+            errorMessage: "Rating validation failed, type must be number.",
         },
     },
     productId: {

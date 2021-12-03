@@ -11,7 +11,7 @@ import { fileURLToPath } from "url";
 import { reviewsFilePath } from "../utils/uploadProductImg/index.js";
 
 import {
-  checkReviewSchema
+  checkReviewSchema, checkValidationResult
 } from "./validation.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,7 +22,7 @@ const reviewsRouter = express.Router();
 
 // Create Review
 
-reviewsRouter.post("/", async (req, res, next) => {
+reviewsRouter.post("/", checkReviewSchema, checkValidationResult, async (req, res, next) => {
     try {
         const { comment, rate, productId } = req.body;
 
@@ -69,7 +69,7 @@ reviewsRouter.get("/", async (req, res, next) => {
 
 // Edit Review
 
-reviewsRouter.put("/:id", async (req, res, next) => {
+reviewsRouter.put("/:id", checkReviewSchema, checkValidationResult, async (req, res, next) => {
     try {
         const fileAsBuffer = fs.readFileSync(reviewsFilePath);
         
