@@ -7,7 +7,6 @@ import uniqid from "uniqid";
 import path, { dirname } from "path";
 
 import { fileURLToPath } from "url";
-import { parseFile, uploadFile } from "../utils/upload/index.js";
 
 import {
   checkReviewSchema
@@ -114,9 +113,5 @@ reviewsRouter.delete("/:id", async (req, res, next) => {
         res.status(500).send({ message: error.message });
     }
 });
-
-
-
-const reviewsRouter = express.Router();
 
 export default reviewsRouter;
