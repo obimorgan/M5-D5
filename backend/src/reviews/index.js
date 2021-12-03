@@ -4,9 +4,11 @@ import fs from "fs";
 
 import uniqid from "uniqid";
 
-import path, { dirname } from "path";
+import path, { dirname, join } from "path";
 
 import { fileURLToPath } from "url";
+
+import { reviewsFilePath } from "../utils/uploadProductImg/index.js";
 
 import {
   checkReviewSchema
@@ -16,17 +18,19 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = dirname(__filename);
 
-const reviewsFilePath = path.join(__dirname, "reviews.json");
-
 const reviewsRouter = express.Router();
 
 // Create Review
 
 reviewsRouter.post("/", async (req, res, next) => {
     try {
+        const { comment, price, productId } = req.body;
+
         const review = {
             id: uniqid(),
-            ...req.body,
+            comment,
+            price,
+            productId,
             createdAt: new Date(),
             updatedAt: new Date(),
         };
@@ -49,6 +53,7 @@ reviewsRouter.post("/", async (req, res, next) => {
 
 reviewsRouter.get("/", async (req, res, next) => {
     try {
+        getReviews();
         const fileAsBuffer = fs.readFileSync(reviewsFilePath);
 
         const fileAsString = fileAsBuffer.toString();
