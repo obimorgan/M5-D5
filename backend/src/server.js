@@ -12,8 +12,23 @@ const __dirname = dirname(__filename);
 const publicDirectory = path.join(__dirname, "../public");
 
 const server = express();
-const PORT = 3001;
-server.use(cors());
+const PORT = process.env.PORT;
+
+const whiteList = [process.env.FE_LOCAL_URL, process.env.FE_PROD_URL]
+
+const corsOptions = {
+  origin: function (origin, next) {
+    console.log("ORIGIN: ", origin)
+
+    if (!origin || whiteList.indexOf(origin) !== -1) {
+      next(null, true)
+    } else {
+      next(new Error("CORS ERROR"))
+    }
+  },
+}
+
+server.use(cors(corsOptions));
 server.use(express.json());
 server.use(express.static(publicDirectory));
 
